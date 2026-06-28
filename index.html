@@ -46,19 +46,31 @@ font-size:45px;
 
 <script>
 
-const audio = [
+const audioFiles = [
   "daichi.wav",
   "akari.wav"
 ];
 
-const random = Math.floor(Math.random() * audio.length);
+// ランダムに1つ選ぶ
+const randomIndex = Math.floor(Math.random() * audioFiles.length);
+const selectedAudio = audioFiles[randomIndex];
 
+// デバッグ表示
+console.log("選ばれた音声:", selectedAudio);
+
+// プレイヤー取得
 const player = document.getElementById("player");
 
 // キャッシュ防止
-player.src = audio[random] + "?v=" + Date.now();
+player.src = selectedAudio + "?t=" + new Date().getTime();
 
-console.log("再生中:", audio[random]);
+// 読み込み
+player.load();
+
+// 自動再生（失敗してもエラーを出さない）
+player.play().catch(() => {
+  console.log("自動再生できませんでした");
+});
 
 </script>
 
