@@ -1,86 +1,59 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-
 <meta charset="UTF-8">
-
 <title>NOW LOADING...</title>
 
 <style>
 
 body{
-
-background:#000;
-
-color:white;
-
-font-family:sans-serif;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-flex-direction:column;
-
-min-height:100vh;
-
-margin:0;
-
+    background:#000;
+    color:white;
+    font-family:sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    min-height:100vh;
+    margin:0;
 }
 
 h1{
-
-font-size:48px;
-
-margin-bottom:5px;
-
+    font-size:48px;
+    margin-bottom:5px;
 }
 
 h3{
-
-font-weight:normal;
-
-margin-top:0;
-
-margin-bottom:25px;
-
+    font-weight:normal;
+    margin-top:0;
+    margin-bottom:25px;
 }
 
 img{
-
-width:300px;
-
-border-radius:12px;
-
-box-shadow:0 0 20px rgba(255,255,255,.2);
-
+    width:300px;
+    border-radius:12px;
+    box-shadow:0 0 20px rgba(255,255,255,.2);
 }
 
 button{
-
-padding:15px 35px;
-
-font-size:20px;
-
-cursor:pointer;
-
-border:none;
-
-border-radius:8px;
-
+    padding:15px 35px;
+    font-size:20px;
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
 }
 
 #finish{
+    display:none;
+    text-align:center;
+    margin-top:35px;
+}
 
-display:none;
-
-text-align:center;
-
-margin-top:35px;
-
+.ticketButton{
+    background:#ffcc00;
+    color:#000;
+    font-weight:bold;
+    font-size:22px;
 }
 
 </style>
@@ -91,17 +64,13 @@ margin-top:35px;
 
 <h1>NOW LOADING...</h1>
 
-<h3>伊藤慧　SAMPLE VOICE</h3>
+<h3>藤山 大貴　SAMPLE VOICE</h3>
 
-<img src="flier.jpg">
+<img src="../flyer.jpg" alt="フライヤー">
 
 <br><br>
 
-<button id="startBtn">
-
-▶ START
-
-</button>
+<button id="startBtn">▶ START</button>
 
 <br>
 
@@ -118,25 +87,22 @@ margin-top:35px;
 こちらはSAMPLE音声です。<br><br>
 
 本公演では<br>
-
 各キャラクター5種類の限定音声を<br>
-
 ご用意しております。<br><br>
 
-ぜひ劇場でお楽しみください。
+さらにレアカードには<br>
+主題歌を収録しております。<br><br>
+
+ぜひ劇場でお楽しみください！
 
 </p>
 
 <br>
 
-<a href="https://livepocket.jp/e/livste_nowloading2026"
+<a href="https://livepocket.jp/e/livste_nowloading2026" target="_blank">
 
-target="_blank">
-
-<button style="background:#ffcc00;color:#000;font-weight:bold;">
-
+<button class="ticketButton">
 🎫 チケット購入はこちら
-
 </button>
 
 </a>
@@ -144,47 +110,44 @@ target="_blank">
 <br><br>
 
 <button onclick="location.reload()">
-
 🔄 もう一度聞く
-
 </button>
 
 </div>
 
 <script>
 
-const audioFile="daichi_bro.wav";
+const audioFile = "daichi_bro.wav";
 
-const startBtn=document.getElementById("startBtn");
+const startBtn = document.getElementById("startBtn");
+const player = document.getElementById("player");
+const finish = document.getElementById("finish");
 
-const player=document.getElementById("player");
+startBtn.addEventListener("click", function(){
 
-const finish=document.getElementById("finish");
+    startBtn.style.display = "none";
 
-startBtn.onclick=function(){
+    player.style.display = "block";
 
-startBtn.style.display="none";
+    player.src = audioFile + "?t=" + Date.now();
 
-player.style.display="block";
+    player.load();
 
-player.src=audioFile+"?"+Date.now();
+    player.play().catch(err=>{
+        console.log(err);
+    });
 
-player.load();
+});
 
-player.play();
+player.addEventListener("ended", function(){
 
-}
+    player.style.display = "none";
 
-player.onended=function(){
+    finish.style.display = "block";
 
-player.style.display="none";
-
-finish.style.display="block";
-
-}
+});
 
 </script>
 
 </body>
-
 </html>
